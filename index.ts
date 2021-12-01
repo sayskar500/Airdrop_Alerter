@@ -9,9 +9,9 @@ var map = new Map();
 
 /* Function to check for new Anchor Airdrop */
 
-const fetchAnchorAirdrop = async (fig: any, protocol_name: any) => {
+const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(fig).then((res: { json: () => any; }) => res.json())
+  return ftch(airdrop_url).then((res: { json: () => any; }) => res.json())
     .then((ans: { [x: string]: { stage: any; }; }) => {
 
       let mx = -1;
