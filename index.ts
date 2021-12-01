@@ -11,14 +11,16 @@ var map = new Map();
 
 const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(airdrop_url).then((res: { json: () => any; }) => res.json())
+  return ftch(airdrop_url)
+    .then((res: { json: () => any; }) => res.json())
     .then((ans: { [x: string]: { stage: any; }; }) => {
 
       let mx = -1;
       for (var w in ans) {
-        const res = ans[w].stage;
-        mx = Math.max(mx, res);
+        const current_stage = ans[w].stage;
+        mx = Math.max(mx, current_stage);
       }
+
       if (map.has(protocol_name)) {
         const prev = map.get(protocol_name);
         if (mx > prev) {
@@ -107,8 +109,8 @@ const fetchValkyrieAirdrop = async (airdrop_url: any, protocol_name: any) => {
       let mx = -1;
 
       for (var w in protocol_url) {
-        const res = protocol_url[w].stage;
-        mx = Math.max(mx, res);
+        const current_stage = protocol_url[w].stage;
+        mx = Math.max(mx, current_stage);
       }
 
       if (map.has(protocol_name)) {
