@@ -11,7 +11,7 @@ var map = new Map();
 
 const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  ftch(airdrop_url)
+  return ftch(airdrop_url)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { [x: string]: { stage: any; }; }) => {
 
@@ -65,14 +65,15 @@ const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
 
 const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  ftch(airdrop_url)
+  return ftch(airdrop_url)
     .then((res: { json: () => any; }) => res.json())
-    .then((ans: { [x: string]: { stage: any; }; }) => {
+    .then((ans: { claimableAirdrops: any; }) => {
 
+      const protocol_url = ans.claimableAirdrops;
       let mx = -1;
 
-      for (var w in ans) {
-        const current_stage = ans[w].stage;
+      for (var w in protocol_url) {
+        const current_stage = protocol_url[w].stage;
         mx = Math.max(mx, current_stage);
       }
 
@@ -101,7 +102,7 @@ const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
 
 const fetchValkyrieAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  ftch(airdrop_url)
+  return ftch(airdrop_url)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { data: { items: any; }; }) => {
 
@@ -134,7 +135,7 @@ const fetchValkyrieAirdrop = async (airdrop_url: any, protocol_name: any) => {
 
 
 function stage_new() {
-  ftch("https://www.postman.com/collections/cc2042cc71d5ce36ef30")
+  return ftch("https://www.postman.com/collections/cc2042cc71d5ce36ef30")
     .then((res: { json: () => any; }) => res.json())
     .then(async (text: { item: any; }) => {
       const postman_url = text.item;
@@ -156,7 +157,7 @@ function stage_new() {
 
 
         if (postman_url[x].name === "Pylon Airdrops") {
-          const airdrop_url = postman_url[x].claimableAirdrops;
+          const airdrop_url = postman_url[x].request.url;
           const protocol_name = postman_url[x].name;
           await fetchPylonAirdrop(airdrop_url, protocol_name);
         }
