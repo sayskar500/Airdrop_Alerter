@@ -11,7 +11,7 @@ var map = new Map();
 
 const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(airdrop_url)
+  ftch(airdrop_url)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { [x: string]: { stage: any; }; }) => {
 
@@ -65,7 +65,7 @@ const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
 
 const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(airdrop_url)
+  ftch(airdrop_url)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { [x: string]: { stage: any; }; }) => {
 
@@ -101,7 +101,7 @@ const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
 
 const fetchValkyrieAirdrop = async (airdrop_url: any, protocol_name: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(airdrop_url)
+  ftch(airdrop_url)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { data: { items: any; }; }) => {
 
