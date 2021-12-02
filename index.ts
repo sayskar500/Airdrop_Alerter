@@ -69,12 +69,12 @@ const fetchPylonAirdrop = async (airdropUrl: any, protocolName: any) => {
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { claimableAirdrops: any; }) => {
 
-      const protocol_url = ans.claimableAirdrops;
+      const protocolUrl = ans.claimableAirdrops;
       let mx = -1;
 
-      for (var w in protocol_url) {
-        const current_stage = protocol_url[w].stage;
-        mx = Math.max(mx, current_stage);
+      for (var w in protocolUrl) {
+        const currentStage = protocolUrl[w].stage;
+        mx = Math.max(mx, currentStage);
       }
 
       if (map.has(protocolName)) {
