@@ -9,23 +9,23 @@ var map = new Map();
 
 /* Function to check for new Anchor Airdrop */
 
-const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
+const fetchAnchorAirdrop = async (airdropUrl: any, protocolName: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(airdrop_url)
+  return ftch(airdropUrl)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { [x: string]: { stage: any; }; }) => {
 
       let mx = -1;
       for (var w in ans) {
-        const current_stage = ans[w].stage;
-        mx = Math.max(mx, current_stage);
+        const currentStage = ans[w].stage;
+        mx = Math.max(mx, currentStage);
       }
 
-      if (map.has(protocol_name)) {
-        const prev = map.get(protocol_name);
-        if (mx > prev) {
-          map.delete(protocol_name);
-          map.set(protocol_name, mx);
+      if (map.has(protocolName)) {
+        const prevStage = map.get(protocolName);
+        if (mx > prevStage) {
+          map.delete(protocolName);
+          map.set(protocolName, mx);
           const embed1 = new MessageEmbed().setTitle('New Stage has appeared for anchor protocol:').setColor('#0099ff');
           webhookClient.send({
             //content: `New Stage has appeared for anchor protocol: ${ res } `,
@@ -35,13 +35,13 @@ const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
           });
         }
       }
-      else map.set(protocol_name, mx);
+      else map.set(protocolName, mx);
     });
 }
 
 
-/* Function to check for new Mirror Airdrop */
 
+/* Function to check for new Mirror Airdrop */
 
 // const fetchMirrorAirdrop = async (fig, protocol_name) => {
 //   return ftch("https://graph.mirror.finance/graphql", {
@@ -63,9 +63,9 @@ const fetchAnchorAirdrop = async (airdrop_url: any, protocol_name: any) => {
 
 /* Function to check for new Pylon Airdrop */
 
-const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
+const fetchPylonAirdrop = async (airdropUrl: any, protocolName: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(airdrop_url)
+  return ftch(airdropUrl)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { claimableAirdrops: any; }) => {
 
@@ -77,12 +77,12 @@ const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
         mx = Math.max(mx, current_stage);
       }
 
-      if (map.has(protocol_name)) {
-        const prev_stage = map.get(protocol_name);
+      if (map.has(protocolName)) {
+        const prevStage = map.get(protocolName);
 
-        if (mx > prev_stage) {
-          map.delete(protocol_name);
-          map.set(protocol_name, mx);
+        if (mx > prevStage) {
+          map.delete(protocolName);
+          map.set(protocolName, mx);
           const embed1 = new MessageEmbed().setTitle('New Stage has appeared for pylon protocol').setColor('#0099ff');
           webhookClient.send({
             //content: `New Stage has appeared for pylon protocol: ${res}`,
@@ -92,7 +92,7 @@ const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
           });
         }
       }
-      else map.set(protocol_name, mx);
+      else map.set(protocolName, mx);
     });
 }
 
@@ -100,25 +100,25 @@ const fetchPylonAirdrop = async (airdrop_url: any, protocol_name: any) => {
 
 /* Function to check for new Valkyrie Airdrop */
 
-const fetchValkyrieAirdrop = async (airdrop_url: any, protocol_name: any) => {
+const fetchValkyrieAirdrop = async (airdropUrl: any, protocolName: any) => {
   const embed = new MessageEmbed().setTitle('NEW STAGE !').setColor('#0099ff');
-  return ftch(airdrop_url)
+  return ftch(airdropUrl)
     .then((res: { json: () => any; }) => res.json())
     .then((ans: { data: { items: any; }; }) => {
 
-      const protocol_url = ans.data.items;
+      const protocolUrl = ans.data.items;
       let mx = -1;
 
-      for (var w in protocol_url) {
-        const current_stage = protocol_url[w].stage;
-        mx = Math.max(mx, current_stage);
+      for (var w in protocolUrl) {
+        const currentStage = protocolUrl[w].stage;
+        mx = Math.max(mx, currentStage);
       }
 
-      if (map.has(protocol_name)) {
-        const prev = map.get(protocol_name);
-        if (mx > prev) {
-          map.delete(protocol_name);
-          map.set(protocol_name, mx);
+      if (map.has(protocolName)) {
+        const prevStage = map.get(protocolName);
+        if (mx > prevStage) {
+          map.delete(protocolName);
+          map.set(protocolName, mx);
           const embed1 = new MessageEmbed().setTitle('New Stage has appeared for valkyrie protocol').setColor('#0099ff');
           webhookClient.send({
             //content: `New Stage has appeared for valkyrie protocol: ${ res } `,
@@ -128,7 +128,7 @@ const fetchValkyrieAirdrop = async (airdrop_url: any, protocol_name: any) => {
           });
         }
       }
-      else map.set(protocol_name, mx);
+      else map.set(protocolName, mx);
     });
 }
 
@@ -138,35 +138,35 @@ function stage_new() {
   return ftch("https://www.postman.com/collections/cc2042cc71d5ce36ef30")
     .then((res: { json: () => any; }) => res.json())
     .then(async (text: { item: any; }) => {
-      const postman_url = text.item;
+      const postmanUrl = text.item;
 
-      for (var x in postman_url) {
-        console.log(postman_url[x].name);
+      for (var x in postmanUrl) {
+        console.log(postmanUrl[x].name);
 
-        if (postman_url[x].name === "Mirror Airdrops") {
-          const airdrop_url = postman_url[x].request.url.raw;
-          const protocol_name = postman_url[x].name;
+        if (postmanUrl[x].name === "Mirror Airdrops") {
+          const airdropUrl = postmanUrl[x].request.url.raw;
+          const protocolName = postmanUrl[x].name;
           //await fetchMirrorAirdrop(fig, protocol_name);
         }
 
-        if (postman_url[x].name === "Anchor Airdrops") {
-          const airdrop_url = postman_url[x].request.url.raw;
-          const protocol_name = postman_url[x].name;
-          await fetchAnchorAirdrop(airdrop_url, protocol_name);
+        if (postmanUrl[x].name === "Anchor Airdrops") {
+          const airdropUrl = postmanUrl[x].request.url.raw;
+          const protocolName = postmanUrl[x].name;
+          await fetchAnchorAirdrop(airdropUrl, protocolName);
         }
 
 
-        if (postman_url[x].name === "Pylon Airdrops") {
-          const airdrop_url = postman_url[x].request.url;
-          const protocol_name = postman_url[x].name;
-          await fetchPylonAirdrop(airdrop_url, protocol_name);
+        if (postmanUrl[x].name === "Pylon Airdrops") {
+          const airdropUrl = postmanUrl[x].request.url;
+          const protocolName = postmanUrl[x].name;
+          await fetchPylonAirdrop(airdropUrl, protocolName);
         }
 
 
-        if (postman_url[x].name === "Valkyrie Airdrops") {
-          const airdrop_url = postman_url[x].request.url.raw;
-          const protocol_name = postman_url[x].name;
-          await fetchValkyrieAirdrop(airdrop_url, protocol_name);
+        if (postmanUrl[x].name === "Valkyrie Airdrops") {
+          const airdropUrl = postmanUrl[x].request.url.raw;
+          const protocolName = postmanUrl[x].name;
+          await fetchValkyrieAirdrop(airdropUrl, protocolName);
         }
       }
     });
