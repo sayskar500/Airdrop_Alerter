@@ -9,7 +9,13 @@
   "author": "Sarkar-Stader",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.24.0",
     "discord.js": "^13.3.1",
+    "headers": "^0.9.6",
     "node-fetch": "^2.6.6"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "nativescript-dev-typescript": "^0.10.0"
   }
 }
