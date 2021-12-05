@@ -16,7 +16,7 @@ const fetchOrionAirdrop = async () => {
         if (mx > prevStage) {
           map.delete(protocolName);
           map.set(protocolName, mx);
-          const embed1 = new MessageEmbed().setTitle(`New Stage has appeared for anchor protocol providing a total amount of ${totalAmount}`).setColor('#0099ff');
+          const embed1 = new MessageEmbed().setTitle(`New Stage has appeared for orion protocol providing a total amount of ${totalAmount}`).setColor('#0099ff');
           webhookClient.send({
             //content: `New Stage has appeared for anchor protocol: ${ res } `,
             username: 'Stader - Bot',

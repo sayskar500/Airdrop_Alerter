@@ -55,7 +55,7 @@ const fetchMirrorAirdrop = async () => {
               if (currntStg > prevStage) totalAmount += currntAmnt;
             });
 
-            const embed1 = new MessageEmbed().setTitle(`New Stage has appeared for pylon protocol providing a total amount of ${totalAmount}`).setColor('#0099ff');
+            const embed1 = new MessageEmbed().setTitle(`New Stage has appeared for mirror protocol providing a total amount of ${totalAmount}`).setColor('#0099ff');
             webhookClient.send({
               //content: `New Stage has appeared for pylon protocol: ${res}`,
               username: 'Stader-Bot',
