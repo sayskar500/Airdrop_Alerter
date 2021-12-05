@@ -1,4 +1,4 @@
-import { map, webhookClient, config, ftch, MessageEmbed, WebhookClient, embed } from "./const";
+import { map, webhookClient, ftch, MessageEmbed, embed } from "./const";
 
 const fetchAnchorAirdrop = async () => {
   return ftch("https://airdrop.anchorprotocol.com/api/get?address=terra14fcxl657lfusga8emxn923hfdqq8nkkvmve8s6&chainId=columbus-4")

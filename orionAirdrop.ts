@@ -1,4 +1,4 @@
-import { map, webhookClient, config, ftch, MessageEmbed, WebhookClient, embed } from "./const";
+import { map, webhookClient, ftch, MessageEmbed, embed } from "./const";
 
 const fetchOrionAirdrop = async () => {
   return ftch("https://airdrop-s52me5whda-ue.a.run.app/claim-message?address=terra1x0lstk53h5vmad9fw7d0uk4sxu467gww8vlnvp&stage=1&amount=200506648")

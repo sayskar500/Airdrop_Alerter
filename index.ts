@@ -5,8 +5,6 @@ import { fetchOrionAirdrop } from "./orionAirdrop";
 import { fetchPylonAirdrop } from "./pylonAirdrop";
 import { fetchValkyrieAirdrop } from "./valkyrieAirdrop";
 
-map.set("Anchor Airdrops", 32);
-
 async function stage_new() {
   await fetchAnchorAirdrop();
   await fetchMirrorAirdrop();

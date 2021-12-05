@@ -1,4 +1,4 @@
-import { map, webhookClient, config, ftch, MessageEmbed, WebhookClient, embed } from "./const";
+import { map, webhookClient, ftch, MessageEmbed, embed } from "./const";
 
 import { Headers } from "node-fetch";
 
