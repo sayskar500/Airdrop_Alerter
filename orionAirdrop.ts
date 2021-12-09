@@ -8,14 +8,14 @@ const fetchOrionAirdrop = async () => {
       const protocolName = "Orion Airdrops Proofs";
 
       const oriondrops = ans.claim;
-      const mx = oriondrops.stage;
+      const maxValue = oriondrops.stage;
       const totalAmount = oriondrops.amount;
 
       if (map.has(protocolName)) {
         const prevStage = map.get(protocolName);
-        if (mx > prevStage) {
+        if (maxValue > prevStage) {
           map.delete(protocolName);
-          map.set(protocolName, mx);
+          map.set(protocolName, maxValue);
           const embed1 = new MessageEmbed().setTitle(`New Stage has appeared for orion protocol providing a total amount of ${totalAmount}`).setColor('#0099ff');
           webhookClient.send({
             //content: `New Stage has appeared for anchor protocol: ${ res } `,
@@ -25,7 +25,7 @@ const fetchOrionAirdrop = async () => {
           });
         }
       }
-      else map.set(protocolName, mx);
+      else map.set(protocolName, maxValue);
     });
 }
 

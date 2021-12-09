@@ -27,27 +27,25 @@ const fetchMirrorAirdrop = async () => {
       const bbc = mirrorAirdrops.length;
       //console.log(bbc);
       if (bbc > 0) {
-        var newStage = [];
         var newPairs = new Map;
 
         for (var w in mirrorAirdrops) {
           const currentStage = mirrorAirdrops[w].stage;
           const currentAmount = mirrorAirdrops[w].amount;
-          newStage.push(currentStage);
           newPairs.set(currentStage, currentAmount);
         }
 
-        let sz = newStage.length;
+        let sz = newPairs.size;
         sz -= 1;
-        const mx = newStage[sz];
+        const [protName, maxValue] = [...newPairs][sz];
 
         if (map.has(protocolName)) {
           const prevStage = map.get(protocolName);
           let totalAmount = 0;
 
-          if (mx > prevStage) {
+          if (maxValue > prevStage) {
             map.delete(protocolName);
-            map.set(protocolName, mx);
+            map.set(protocolName, maxValue);
 
             newPairs.forEach((value: any, key: any) => {
               const currntStg = key;
@@ -64,7 +62,7 @@ const fetchMirrorAirdrop = async () => {
             });
           }
         }
-        else map.set(protocolName, mx);
+        else map.set(protocolName, maxValue);
       }
     });
 }

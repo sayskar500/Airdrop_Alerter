@@ -6,28 +6,25 @@ const fetchAnchorAirdrop = async () => {
     .then((ans: { [x: string]: { stage: any, amount: any; }; }) => {
 
       const protocolName = "Anchor Airdrops";
-
-      var newStage = [];
       var newPairs = new Map;
 
       for (var w in ans) {
         const currentStage = ans[w].stage;
         const currentAmount = ans[w].amount;
-        newStage.push(currentStage);
         newPairs.set(currentStage, currentAmount);
       }
 
-      let sz = newStage.length;
+      let sz = newPairs.size;
       sz -= 1;
-      const mx = newStage[sz];
+      const [protName, maxValue] = [...newPairs][sz];
 
       if (map.has(protocolName)) {
         const prevStage = map.get(protocolName);
         let totalAmount = 0;
 
-        if (mx > prevStage) {
+        if (maxValue > prevStage) {
           map.delete(protocolName);
-          map.set(protocolName, mx);
+          map.set(protocolName, maxValue);
 
           newPairs.forEach((value: any, key: any) => {
             const currntStg = key;
@@ -44,7 +41,7 @@ const fetchAnchorAirdrop = async () => {
           });
         }
       }
-      else map.set(protocolName, mx);
+      else map.set(protocolName, maxValue);
     });
 }
 

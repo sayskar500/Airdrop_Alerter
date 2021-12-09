@@ -1,3 +1,4 @@
+import { exit } from "process";
 import { map, webhookClient, ftch, MessageEmbed, embed } from "./const";
 
 const fetchPylonAirdrop = async () => {
@@ -7,33 +8,28 @@ const fetchPylonAirdrop = async () => {
     .then((ans: { claimableAirdrops: any; }) => {
 
       const protocolUrl = ans.claimableAirdrops;
-
-      var newStage = [];
       var newPairs = new Map;
 
       for (var w in protocolUrl) {
         const currentStage = protocolUrl[w].stage;
         const currentAmount = protocolUrl[w].airdropMineAmount;
-        newStage.push(currentStage);
         newPairs.set(currentStage, currentAmount);
       }
 
-      newStage.reverse();
-      let sz = newStage.length;
-      sz -= 1;
-      const mx = newStage[sz];
+      const [protName, maxValue] = [...newPairs][0];
 
       if (map.has(protocolName)) {
         const prevStage = map.get(protocolName);
         let totalAmount = 0;
 
-        if (mx > prevStage) {
+        if (maxValue > prevStage) {
           map.delete(protocolName);
-          map.set(protocolName, mx);
+          map.set(protocolName, maxValue);
 
           newPairs.forEach((value: any, key: any) => {
             const currntStg = key;
             const currntAmnt = parseInt(value);
+            if (currntAmnt === prevStage) exit;
             if (currntStg > prevStage) totalAmount += currntAmnt;
           });
 
@@ -46,7 +42,7 @@ const fetchPylonAirdrop = async () => {
           });
         }
       }
-      else map.set(protocolName, mx);
+      else map.set(protocolName, maxValue);
     });
 }
 

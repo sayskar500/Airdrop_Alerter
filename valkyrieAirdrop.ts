@@ -10,27 +10,25 @@ const fetchValkyrieAirdrop = async () => {
 
       const protocolUrl = ans.data.items;
 
-      var newStage = [];
       var newPairs = new Map;
 
       for (var w in protocolUrl) {
         const currentStage = protocolUrl[w].stage;
         const currentAmount = protocolUrl[w].airdropAmount;
-        newStage.push(currentStage);
         newPairs.set(currentStage, currentAmount);
       }
 
-      let sz = newStage.length;
+      let sz = newPairs.size;
       sz -= 1;
-      const mx = newStage[sz];
+      const [protName, maxValue] = [...newPairs][sz];
 
       if (map.has(protocolName)) {
         const prevStage = map.get(protocolName);
         let totalAmount = 0;
 
-        if (mx > prevStage) {
+        if (maxValue > prevStage) {
           map.delete(protocolName);
-          map.set(protocolName, mx);
+          map.set(protocolName, maxValue);
 
           newPairs.forEach((value: any, key: any) => {
             const currntStg = key;
@@ -47,7 +45,7 @@ const fetchValkyrieAirdrop = async () => {
           });
         }
       }
-      else map.set(protocolName, mx);
+      else map.set(protocolName, maxValue);
     });
 }
 
