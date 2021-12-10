@@ -16,6 +16,9 @@ const fetchPylonAirdrop = async () => {
         newPairs.set(currentStage, currentAmount);
       }
 
+      let sz = newPairs.size;
+      sz -= 1;
+
       const [protName, maxValue] = [...newPairs][0];
 
       if (map.has(protocolName)) {
@@ -26,12 +29,11 @@ const fetchPylonAirdrop = async () => {
           map.delete(protocolName);
           map.set(protocolName, maxValue);
 
-          newPairs.forEach((value: any, key: any) => {
-            const currntStg = key;
-            const currntAmnt = parseInt(value);
-            if (currntAmnt === prevStage) exit;
-            if (currntStg > prevStage) totalAmount += currntAmnt;
-          });
+          for (var x = 0; x < sz; x++) {
+            const [key, value] = [...newPairs][x];
+            if (value === prevStage) break;
+            totalAmount += parseInt(value);
+          }
 
           const embed1 = new MessageEmbed().setTitle(`New Stage has appeared for pylon protocol providing a total amount of ${totalAmount}`).setColor('#0099ff');
           webhookClient.send({

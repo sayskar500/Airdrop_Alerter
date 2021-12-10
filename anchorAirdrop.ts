@@ -1,3 +1,4 @@
+import { exit } from "process";
 import { map, webhookClient, ftch, MessageEmbed, embed } from "./const";
 
 const fetchAnchorAirdrop = async () => {
@@ -26,11 +27,11 @@ const fetchAnchorAirdrop = async () => {
           map.delete(protocolName);
           map.set(protocolName, maxValue);
 
-          newPairs.forEach((value: any, key: any) => {
-            const currntStg = key;
-            const currntAmnt = parseInt(value);
-            if (currntStg > prevStage) totalAmount += currntAmnt;
-          });
+          for (var x = sz; x >= 0; x--) {
+            const [key, value] = [...newPairs][x];
+            if (value === prevStage) break;
+            totalAmount += parseInt(value);
+          }
 
           const embed1 = new MessageEmbed().setTitle(`New Stage has appeared for anchor protocol providing a total amount of ${totalAmount}`).setColor('#0099ff');
           webhookClient.send({
